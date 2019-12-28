@@ -4,6 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
+[assembly: InternalsVisibleTo("Chatterbox.Client.Tests")]
 namespace Chatterbox.Client.Helpers
 {
     /// <inheritdoc/>

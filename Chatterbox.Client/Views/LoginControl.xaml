@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Chatterbox.Client.Views.LoginControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch"
+             Padding="50,0">
+    <StackPanel Orientation="Vertical" FocusManager.FocusedElement="{Binding ElementName=UserName}">
+        <Label Content="Username" HorizontalAlignment="Left" Margin="0,250,0,0"/>
+        <TextBox x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,20,0,0">
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
+            </TextBox.InputBindings>
+        </TextBox>
+        <Button Content="Login" Command="{Binding LoginCommand}" HorizontalAlignment="Center" Margin="0,50,0,0"/>
+    </StackPanel>
+</UserControl>

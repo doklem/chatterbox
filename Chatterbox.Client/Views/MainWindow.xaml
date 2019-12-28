@@ -5,39 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Chatterbox.Client.ViewModels"
         xmlns:views="clr-namespace:Chatterbox.Client.Views"
+        mc:Ignorable="d"
         Title="Chatterbox" Height="600" Width="400">
     <Window.Resources>
-        <views:EnumToStringConverter x:Key="EnumToString"/>
+        <views:BoolToVisibilityConverter x:Key="BoolToVisibility"/>
+        <DataTemplate DataType="{x:Type viewModels:LoginViewModel}">
+            <views:LoginControl />
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModels:ChatViewModel}">
+            <views:ChatControl />
+        </DataTemplate>
     </Window.Resources>
     <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <Label Content="{Binding ConnectionState, Converter={StaticResource EnumToString}}"/>
-        </StatusBar>
-        <DockPanel DockPanel.Dock="Top" Margin="20,0">
-            <DockPanel DockPanel.Dock="Top">
-                <Button x:Name="Send" DockPanel.Dock="Right" Command="{Binding SendCommand}" Content="Send"/>
-                <TextBox x:Name="NewMessage" DockPanel.Dock="Left" Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0">
-                    <TextBox.InputBindings>
-                        <KeyBinding Command="{Binding SendCommand}" Key="Return" />
-                    </TextBox.InputBindings>
-                </TextBox>
-            </DockPanel>
-            <ListBox x:Name="Messages" DockPanel.Dock="Bottom" ItemsSource="{Binding Messages}" HorizontalContentAlignment="Stretch" Margin="0,10,0,0">
-                <ListBox.Resources>
-                    <DataTemplate DataType="{x:Type viewModels:ForeignMessageListItem}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="60,10,10,10">
-                            <Label HorizontalContentAlignment="Right" Content="{Binding Header}"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Text}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                    <DataTemplate DataType="{x:Type viewModels:OwnMessageListItem}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="10,10,60,10">
-                            <Label HorizontalContentAlignment="Left" Content="{Binding Header}"/>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="{Binding Text}"/>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.Resources>
-            </ListBox>
-        </DockPanel>
+        <Menu DockPanel.Dock="Top" IsMainMenu="True" HorizontalAlignment="Stretch">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <MenuItem Header="{Binding UserName}" HorizontalAlignment="Right" Visibility="{Binding IsAuthenticated, Converter={StaticResource BoolToVisibility}}">
+                <MenuItem Header="Logout" Command="{Binding LogoutCommand}"/>
+            </MenuItem>
+        </Menu>
+        <ContentControl DockPanel.Dock="Bottom" Margin="0,10,0,0" Content="{Binding ContentViewModel}"/>
     </DockPanel>
 </Window>

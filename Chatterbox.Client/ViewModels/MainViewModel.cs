@@ -1,38 +1,27 @@
 ﻿using Chatterbox.Client.DataAccess;
 using Chatterbox.Client.Helpers;
-using Chatterbox.Client.Options;
-using Chatterbox.Contracts;
 using GalaSoft.MvvmLight;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Chatterbox.Client.Tests")]
 namespace Chatterbox.Client.ViewModels
 {
     /// <summary>
     /// This class represents the <see cref="Views.MainWindow"/>'s view model. It follows the MVVM pattern.
     /// </summary>
-    public class MainViewModel : ViewModelBase, IDisposable
+    public class MainViewModel : ViewModelBase, IAsyncDisposable
     {
         /// <summary>
-        /// Gets the name of the <see cref="ConnectionState"/>-property.
+        /// Gets the name of the <see cref="UserName"/>-property.
         /// </summary>
-        private static readonly string connectionStatePropertyName = nameof(ConnectionState);
+        private static readonly string userNamePropertyName = nameof(UserName);
 
         /// <summary>
-        /// Gets the <see cref="IChatClient"/> which will be used to communicate with the server's hub.
+        /// Gets the name of the <see cref="IsAuthenticated"/>-property.
         /// </summary>
-        private readonly IChatClient client;
-
-        /// <summary>
-        /// Gets the <see cref="IDispatcher"/> which encapsulates the access to the <see cref="System.Windows.Threading.Dispatcher"/>.
-        /// </summary>
-        private readonly IDispatcher dispatcher;
+        private static readonly string isAuthenticatedPropertyName = nameof(IsAuthenticated);
 
         /// <summary>
         /// Gets the <see cref="ILogger"/>, which will be used by this class for writing log messages.
@@ -40,149 +29,131 @@ namespace Chatterbox.Client.ViewModels
         private readonly ILogger logger;
 
         /// <summary>
-        /// Gets the name of the current user.
+        /// Gets the <see cref="IServiceProvider"/> which will be used to resolve the <see cref="ContentViewModel"/> and its scope.
         /// </summary>
-        private readonly string userName;
+        private readonly IServiceProvider rootProvider;
 
         /// <summary>
-        /// The actual field behind the <see cref="NewMessage"/> property.
+        /// Gets the user's session.
         /// </summary>
-        private string newMessage;
+        private readonly IUserSession session;
 
         /// <summary>
-        /// Gets the state of the connection to the server.
+        /// Gets or sets the actual field behind the <see cref="ContentViewModel"/>-property.
         /// </summary>
-        public ConnectionState ConnectionState { get { return client.State; } }
+        private ViewModelBase contentViewModel;
 
         /// <summary>
-        /// Gets all <see cref="ChatMessage"/>s, which where sent by the server.
+        /// Gets or sets the <see cref="IServiceScope"/> of the <see cref="ContentViewModel"/>.
         /// </summary>
-        public ObservableCollection<MessageListItemBase> Messages { get; private set; }
+        private IServiceScope contentViewModelScope;
 
         /// <summary>
-        /// Gets or sets the text of a new message. Changing it will trigger a <see cref="ObservableObject.PropertyChanged"/> event.
+        /// Tells if the desposing of this instance was already triggered or not.
         /// </summary>
-        public string NewMessage
+        private bool isDisposing;
+
+        /// <summary>
+        /// Gets or sets the view model of the <see cref="Views.MainWindow"/>'s content.
+        /// </summary>
+        public ViewModelBase ContentViewModel
         {
-            get { return newMessage; }
+            get { return contentViewModel; }
 
             set
             {
-                if (!string.Equals(newMessage, value))
-                {
-                    newMessage = value;
-                    logger.LogDebug("Raising property changed event for {property}", "NewMessage");
-                    RaisePropertyChanged();
-                }
+                contentViewModel = value;
+                logger.LogDebug("Raising property changed event for {property}", "ContentViewModel");
+                RaisePropertyChanged();
             }
         }
 
         /// <summary>
-        /// Gets the <see cref="IAsyncCommand"/>, which will send a new message to the server.
+        /// Gets the <see cref="IAsyncCommand"/>, which end the session of the current user.
         /// </summary>
-        public IAsyncCommand SendCommand { get; private set; }
+        public IAsyncCommand LogoutCommand { get; private set; }
+
+        /// <summary>
+        /// Tells if the current user is authenticated or not.
+        /// </summary>
+        public bool IsAuthenticated { get { return session.IsAuthenticated; } }
+
+        /// <summary>
+        /// Gets the name of the current user.
+        /// </summary>
+        public string UserName
+        {
+            get { return session.UserName; }
+        }
 
         /// <summary>
         /// Creates a new instance of <see cref="MainViewModel"/>.
         /// </summary>
-        /// <param name="client">This instance of <see cref="IChatClient"/> will become the view model's <see cref="client"/>.</param>
-        /// <param name="dispatcher">This instance of <see cref="IDispatcher"/> will become the view model's <see cref="dispatcher"/>.</param>
-        /// <param name="logger">This <see cref="ILogger"/> will become the <see cref="ChatViewModel"/>'s <see cref="logger"/>.</param>
-        /// <param name="options">This <see cref="AppSettings"/> will deliver the <see cref="MainViewModel"/>'s username.</param>
-        /// <param name="sendCommand">This instance of <see cref="AsyncCommand"/> will become the <see cref="ChatViewModel"/>'s <see cref="SendCommand"/>.</param>
-        public MainViewModel(IChatClient client, IDispatcher dispatcher, ILogger<MainViewModel> logger, IOptionsMonitor<AppSettings> options, IAsyncCommand sendCommand)
+        /// <param name="logger">This <see cref="ILogger"/> will become the <see cref="MainViewModel"/>'s <see cref="logger"/>.</param>
+        /// <param name="logoutCommand">This instance of <see cref="AsyncCommand"/> will become the <see cref="MainViewModel"/>'s <see cref="LogoutCommand"/>.</param>
+        /// <param name="provider">This instance of <see cref="IServiceProvider"/> will become the view model's <see cref="rootProvider"/>.</param>
+        /// <param name="session">This instance of <see cref="IUserSession"/> will become the view model's <see cref="session"/>.</param>
+        public MainViewModel(ILogger<MainViewModel> logger, IAsyncCommand logoutCommand, IServiceProvider provider, IUserSession session)
         {
-            this.client = client ?? throw new ArgumentNullException(nameof(client));
-            this.dispatcher = dispatcher ?? throw new ArgumentNullException(nameof(dispatcher));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
-            userName = options.CurrentValue.Sender;
-            client.ObtainMessage += OnObtainMessage;
-            client.StateChangedAsync += OnConnectedChangedAsync;
-            Messages = new ObservableCollection<MessageListItemBase>(client.Select(ToMessageListItem));
-            SendCommand = sendCommand ?? throw new ArgumentNullException(nameof(sendCommand));
-            SendCommand.CanExecuteFunc = CanSendMessage;
-            SendCommand.ExecuteFunc = SendMessageAsync;
+            rootProvider = provider ?? throw new ArgumentNullException(nameof(provider));
+            this.session = session ?? throw new ArgumentNullException(nameof(session));
+            contentViewModelScope = rootProvider.CreateScope();
+            ContentViewModel = contentViewModelScope.ServiceProvider.GetRequiredService<LoginViewModel>();
+            this.session.IsAuthenticatedChangedAsync += OnIsAuthenticatedChangedAsync;
+            LogoutCommand = logoutCommand ?? throw new ArgumentNullException(nameof(logoutCommand));
+            LogoutCommand.ExecuteFunc = LogoutAsync;
         }
 
         /// <inheritdoc/>
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
+            if (isDisposing)
+            {
+                return;
+            }
+            isDisposing = true;
             logger.LogDebug("Disposing");
-            client.ObtainMessage -= OnObtainMessage;
-            client.StateChangedAsync -= OnConnectedChangedAsync;
+
+            // Why this cast? See https://github.com/aspnet/Extensions/issues/426
+            await (contentViewModelScope as IAsyncDisposable).DisposeAsync().ConfigureAwait(false);
+            session.IsAuthenticatedChangedAsync -= OnIsAuthenticatedChangedAsync;
             logger.LogDebug("Disposed");
         }
 
         /// <summary>
-        /// Tells if its possible to send messages at the moment or not.
+        /// Ends the current user's session.
         /// </summary>
-        /// <returns>If sending is possible, it will return <code>true</code> else <code>false</code>.</returns>
-        private bool CanSendMessage()
+        private async Task LogoutAsync()
         {
-            return client.State == ConnectionState.Connected;
+            logger.LogDebug("Attempting to logout");
+            await session.LogoutAsync();
         }
 
         /// <summary>
-        /// Handles the changes of the <see cref="IChatClient"/>'s connectivity.
+        /// Handels changes of the <see cref="session"/>'s <see cref="IUserSession.IsAuthenticated"/>.
         /// </summary>
-        private async Task OnConnectedChangedAsync()
+        private async Task OnIsAuthenticatedChangedAsync()
         {
-            await dispatcher.InvokeAsync(() =>
+            logger.LogDebug("Disposing current content");
+            // Why this cast? See https://github.com/aspnet/Extensions/issues/426
+            await (contentViewModelScope as IAsyncDisposable).DisposeAsync().ConfigureAwait(false);
+            contentViewModelScope = rootProvider.CreateScope();
+            // If the user is authenticated show the chat or else the login.
+            if (session.IsAuthenticated)
             {
-                logger.LogDebug("Raising property changed event for {property}", connectionStatePropertyName);
-                RaisePropertyChanged(connectionStatePropertyName);
-                SendCommand.RaiseCanExecuteChanged();
-            });
-        }
-
-        /// <summary>
-        /// Handels new <see cref="ChatMessage"/>s, which do come in from the server.
-        /// </summary>
-        /// <param name="message">This instance of <see cref="MessageListItemBase"/> will be added to the <see cref="Messages"/>.</param>
-        private void OnObtainMessage(ChatMessage message)
-        {
-            logger.LogDebug("Obtained the following text {message} from {sender}", message.Text, message.Sender);
-            dispatcher.Invoke(() => Messages.Add(ToMessageListItem(message)));
-        }
-
-        /// <summary>
-        /// Sends a new message to the server.
-        /// </summary>
-        private async Task SendMessageAsync()
-        {
-            try
-            {
-                logger.LogDebug("Sending the following text {message}", NewMessage);
-                await client.SendMessageAsync(NewMessage, userName).ConfigureAwait(false);
-
-                // Only remove the text, if the message was successfully sent by the client.
-                NewMessage = string.Empty;
+                logger.LogDebug("Switching to the chat view");
+                ContentViewModel = contentViewModelScope.ServiceProvider.GetRequiredService<ChatViewModel>();
             }
-            catch (Exception ex)
+            else
             {
-                logger.LogError(ex, "Failed to send a message");
-                throw;
+                logger.LogDebug("Switching to the login view");
+                ContentViewModel = contentViewModelScope.ServiceProvider.GetRequiredService<LoginViewModel>();
             }
-        }
-
-        /// <summary>
-        /// Creates a <see cref="MessageListItemBase"/> from the given <see cref="ChatMessage"/>.
-        /// </summary>
-        /// <param name="chatMessage">The values of the <see cref="ChatMessage"/> will be copied into the new <see cref="MessageListItemBase"/>.</param>
-        /// <returns>If the given <paramref name="chatMessage"/>'s <see cref="ChatMessage.Sender"/> is equal to the <see cref="userName"/>,
-        /// it will return a <see cref="OwnMessageListItem"/> else a <see cref="ForeignMessageListItem"/>.</returns>
-        private MessageListItemBase ToMessageListItem(ChatMessage chatMessage)
-        {
-            // Check if the message was sent by this client or another.
-            if (string.Equals(chatMessage.Sender, userName, StringComparison.OrdinalIgnoreCase))
-            {
-                return new OwnMessageListItem(chatMessage.Time.ToLocalTime().ToShortTimeString(), chatMessage.Text, chatMessage.Time);
-            }
-            return new ForeignMessageListItem($"{chatMessage.Time.ToLocalTime().ToShortTimeString()} {chatMessage.Sender}", chatMessage.Text, chatMessage.Time);
+            logger.LogDebug("Raising property changed event for {property}", userNamePropertyName);
+            RaisePropertyChanged(userNamePropertyName);
+            logger.LogDebug("Raising property changed event for {property}", isAuthenticatedPropertyName);
+            RaisePropertyChanged(isAuthenticatedPropertyName);
         }
     }
 }

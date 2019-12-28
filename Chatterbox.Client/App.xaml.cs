@@ -67,6 +67,11 @@ namespace Chatterbox.Client
                     .AddSingleton<IHostedService>(provider => provider.GetRequiredService<ChatClient>())
                     .AddSingleton<IChatClient>(provider => provider.GetRequiredService<ChatClient>())
                     .AddSingleton<IDispatcher, DispatcherAdapter>()
+                    .AddSingleton<IUserSession, UserSession>()
+                    .AddScoped<LoginViewModel>()
+                    .AddScoped<LoginControl>()
+                    .AddScoped<ChatViewModel>()
+                    .AddScoped<ChatControl>()
                     .AddSingleton<MainViewModel>()
                     .AddSingleton<MainWindow>())
                 .Build();
@@ -95,7 +100,7 @@ namespace Chatterbox.Client
         }
 
         /// <summary>
-        /// Handels <see cref="System.Exception"/>, which where not catched by showing the with the <see cref="ExceptionHandler"/>.
+        /// Handels <see cref="System.Exception"/>, which where not catched by showing the with the <see cref="FallbackExceptionHandler"/>.
         /// If the <see cref="System.Exception"/> was created after the initialization of the logging, it will be logged as well.
         /// </summary>
         /// <param name="sender"></param>

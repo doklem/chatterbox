@@ -16,11 +16,5 @@ namespace Chatterbox.Client.Options
         /// Gets or sets the delay between connection retries during the application startup.
         /// </summary>
         public TimeSpan InitialRetryDelay { get; set; }
-
-        /// <summary>
-        /// Gets or sets the username, which will be used by this client.
-        /// </summary>
-        // ToDo: Remove this in favor of a user dialog.
-        public string Sender { get; set; }
     }
 }
