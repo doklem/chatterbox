@@ -8,7 +8,12 @@
              VerticalAlignment="Stretch"
              Padding="50,0">
     <StackPanel Orientation="Vertical" FocusManager.FocusedElement="{Binding ElementName=UserName}">
-        <Label Content="Username" HorizontalAlignment="Left" Margin="0,250,0,0"/>
+        <Viewbox Width="128" Height="128" Margin="0,60,0,0">
+            <Canvas Width="24" Height="24">
+                <Path Data="M20,2H4A2,2 0 0,0 2,4V22L6,18H20A2,2 0 0,0 22,16V4A2,2 0 0,0 20,2M6,9H18V11H6M14,14H6V12H14M18,8H6V6H18" Fill="{DynamicResource SecondaryAccentBrush}" />
+            </Canvas>
+        </Viewbox>
+        <Label Content="Username" HorizontalAlignment="Left" Margin="0,70,0,0"/>
         <TextBox x:Name="UserName" Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" Margin="0,20,0,0">
             <TextBox.InputBindings>
                 <KeyBinding Command="{Binding LoginCommand}" Key="Return" />

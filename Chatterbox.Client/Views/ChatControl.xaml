@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:Chatterbox.Client.ViewModels"
              xmlns:views="clr-namespace:Chatterbox.Client.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch">
@@ -12,12 +13,18 @@
         <views:EnumToStringConverter x:Key="EnumToString"/>
     </UserControl.Resources>
     <DockPanel>
-        <StatusBar DockPanel.Dock="Bottom">
-            <Label Content="{Binding ConnectionState, Converter={StaticResource EnumToString}}"/>
+        <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource PrimaryHueMidBrush}">
+            <Label Content="{Binding ConnectionState, Converter={StaticResource EnumToString}}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
         </StatusBar>
         <DockPanel DockPanel.Dock="Top" Margin="20,0">
             <DockPanel DockPanel.Dock="Top">
-                <Button x:Name="Send" DockPanel.Dock="Right" Command="{Binding SendCommand}" Content="Send"/>
+                <Button x:Name="Send" DockPanel.Dock="Right" Command="{Binding SendCommand}" Style="{DynamicResource MaterialDesignRaisedAccentButton}">
+                    <Button.Content>
+                        <Canvas Width="24" Height="24">
+                            <Path Data="M2,21L23,12L2,3V10L17,12L2,14V21Z" Fill="{DynamicResource SecondaryHueLightForegroundBrush}" />
+                        </Canvas>
+                    </Button.Content>
+                </Button>
                 <TextBox x:Name="NewMessage" DockPanel.Dock="Left" Text="{Binding NewMessage, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,10,0">
                     <TextBox.InputBindings>
                         <KeyBinding Command="{Binding SendCommand}" Key="Return" />
@@ -27,16 +34,20 @@
             <ListBox x:Name="Messages" DockPanel.Dock="Bottom" ItemsSource="{Binding Messages}" HorizontalContentAlignment="Stretch" Margin="0,10,0,0">
                 <ListBox.Resources>
                     <DataTemplate DataType="{x:Type viewModels:ForeignMessageListItem}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="70,10,10,10">
-                            <Label HorizontalContentAlignment="Right" Content="{Binding Header}"/>
-                            <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Text}"/>
-                        </StackPanel>
+                        <materialDesign:Card Margin="60,0,0,0" Background="{DynamicResource PrimaryHueLightBrush}">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Right" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="10">
+                                <Label HorizontalContentAlignment="Right" Content="{Binding Header}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                                <TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="{Binding Text}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
                     </DataTemplate>
                     <DataTemplate DataType="{x:Type viewModels:OwnMessageListItem}">
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="10,10,70,10">
-                            <Label HorizontalContentAlignment="Left" Content="{Binding Header}"/>
-                            <TextBlock HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="{Binding Text}"/>
-                        </StackPanel>
+                        <materialDesign:Card Margin="0,0,60,0" Background="{DynamicResource PrimaryHueLightBrush}">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MaxWidth="{Binding ActualWidth, ElementName=Messages}" Margin="10">
+                                <Label HorizontalContentAlignment="Left" Content="{Binding Header}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                                <TextBlock HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Text="{Binding Text}"/>
+                            </StackPanel>
+                        </materialDesign:Card>
                     </DataTemplate>
                 </ListBox.Resources>
             </ListBox>
