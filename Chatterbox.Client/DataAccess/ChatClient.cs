@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ using System.Threading.Tasks;
 namespace Chatterbox.Client.DataAccess
 {
     /// <inheritdoc/>
-    internal class ChatClient : IHostedService
+    internal class ChatClient : IChatClient, IHostedService
     {
         /// <summary>
         /// Gets the name of the SingalR hub's method for requesting the history over all <see cref="ChatMessage"/>s.
@@ -72,6 +73,12 @@ namespace Chatterbox.Client.DataAccess
         /// </summary>
         private IDisposable receiveMessageHandel;
 
+        /// <inheritdoc/>
+        public int Count { get { return messages.Count; } }
+
+        /// <inheritdoc/>
+        public ConnectionState State { get { return connection.State.ToConnectionState(); } }
+
         /// <summary>
         /// Creates a new instance of <see cref="ChatClient"/>.
         /// </summary>
@@ -87,10 +94,28 @@ namespace Chatterbox.Client.DataAccess
         }
 
         /// <inheritdoc/>
-        public async Task SendMessageAsync(string message)
+        public event Func<Task> StateChangedAsync;
+
+        /// <inheritdoc/>
+        public event Action<ChatMessage> ObtainMessage;
+
+        /// <inheritdoc/>
+        public IEnumerator<ChatMessage> GetEnumerator()
+        {
+            return messages.Values.GetEnumerator();
+        }
+
+        /// <inheritdoc/>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return messages.Values.GetEnumerator();
+        }
+
+        /// <inheritdoc/>
+        public async Task SendMessageAsync(string message, string sender)
         {
             logger.LogInformation("Sending the following message '{message}'", message);
-            await connection.InvokeAsync(SendMethodName, message, options.CurrentValue.Sender)
+            await connection.InvokeAsync(SendMethodName, message, sender)
                 .ConfigureAwait(false);
         }
 
@@ -117,6 +142,8 @@ namespace Chatterbox.Client.DataAccess
         public async Task StopAsync(CancellationToken cancellationToken)
         {
             logger.LogDebug("Stopping");
+            ObtainMessage = null;
+            StateChangedAsync = null;
             connection.Closed -= OnStateChangedAsync;
             connection.Reconnected -= OnStateChangedAsync;
             connection.Reconnecting -= OnStateChangedAsync;
@@ -156,10 +183,13 @@ namespace Chatterbox.Client.DataAccess
         /// <summary>
         /// Handels the changes of the <see cref="connection"/>'s <see cref="HubConnection.State"/>.
         /// </summary>
-        private Task OnStateChangedAsync(object arg)
+        private async Task OnStateChangedAsync(object arg)
         {
-            logger.LogDebug("Connection state changed");
-            return Task.CompletedTask;
+            logger.LogDebug("Raising an StateChangedAsync event");
+            if (StateChangedAsync != null)
+            {
+                await StateChangedAsync().ConfigureAwait(false);
+            }
         }
 
         /// <summary>
@@ -173,9 +203,6 @@ namespace Chatterbox.Client.DataAccess
             {
                 messages.AddOrUpdate(message.Id, message, (id, oldValue) => message);
             }
-
-            // ToDo: Remove this, since it is only intened for development purposes.
-            SendMessageAsync("Hello world").FireAndForgetSafeAsync();
         }
 
         /// <summary>
@@ -197,7 +224,8 @@ namespace Chatterbox.Client.DataAccess
                 (id, oldValue) => message);
             if (isNew)
             {
-                logger.LogDebug("Obtained a new message");
+                logger.LogDebug("Raising an ObtainMessage event.");
+                ObtainMessage?.Invoke(message);
             }
         }
     }

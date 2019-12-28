@@ -13,3 +13,4 @@ This is a sample .NET Core chat application, which uses a client-server architec
 * [ASP.NET Core SignalR .NET Client](https://docs.microsoft.com/en-us/aspnet/core/signalr/dotnet-client)
 * [Sample app from ASP.Net Core documentation](https://github.com/aspnet/AspNetCore.Docs/tree/master/aspnetcore/signalr/dotnet-client/sample)
 * [Dependency Injection and Service Provider with .NET Core 3.0 WPF applications](https://marcominerva.wordpress.com/2019/11/07/update-on-using-hostbuilder-dependency-injection-and-service-provider-with-net-core-3-0-wpf-applications/)
+* [MVVM - Going async with async command](https://johnthiriet.com/mvvm-going-async-with-async-command/)

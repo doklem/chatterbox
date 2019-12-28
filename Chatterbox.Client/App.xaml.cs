@@ -1,6 +1,8 @@
 ﻿using Chatterbox.Client.DataAccess;
 using Chatterbox.Client.Helpers;
 using Chatterbox.Client.Options;
+using Chatterbox.Client.ViewModels;
+using Chatterbox.Client.Views;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +52,7 @@ namespace Chatterbox.Client
                 .ConfigureHostConfiguration(builder => builder.AddEnvironmentVariables())
                 .ConfigureServices((context, services) => services
                     .Configure<AppSettings>(context.Configuration)
+                    .AddTransient<IAsyncCommand, AsyncCommand>()
                     .AddSingleton(provider =>
                     {
                         var hubConnectionBuilder = new HubConnectionBuilder()
@@ -60,7 +63,11 @@ namespace Chatterbox.Client
                         }
                         return hubConnectionBuilder;
                     })
-                    .AddHostedService<ChatClient>()
+                    .AddSingleton<ChatClient>()
+                    .AddSingleton<IHostedService>(provider => provider.GetRequiredService<ChatClient>())
+                    .AddSingleton<IChatClient>(provider => provider.GetRequiredService<ChatClient>())
+                    .AddSingleton<IDispatcher, DispatcherAdapter>()
+                    .AddSingleton<MainViewModel>()
                     .AddSingleton<MainWindow>())
                 .Build();
         }
@@ -88,7 +95,7 @@ namespace Chatterbox.Client
         }
 
         /// <summary>
-        /// Handels <see cref="System.Exception"/>, which where not catched by showing the with the <see cref="FallbackExceptionHandler"/>.
+        /// Handels <see cref="System.Exception"/>, which where not catched by showing the with the <see cref="ExceptionHandler"/>.
         /// If the <see cref="System.Exception"/> was created after the initialization of the logging, it will be logged as well.
         /// </summary>
         /// <param name="sender"></param>
