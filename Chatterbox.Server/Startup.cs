@@ -1,40 +1,31 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Chatterbox.Contracts;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using System.Collections.Concurrent;
 
 namespace Chatterbox.Server
 {
+    /// <summary>
+    /// Initializes the services of the server application.
+    /// </summary>
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        /// <summary>
+        /// Registers all services, which are needed to run the server.
+        /// </summary>
+        /// <param name="services">This instance of <see cref="IServiceCollection"/> will be used for the registration.</param>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ConcurrentQueue<ChatMessage>>().AddSignalR();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        /// <summary>
+        /// Configures all services, which are used by the server.
+        /// </summary>
+        /// <param name="builder">This <see cref="IApplicationBuilder"/> is used for the configuration of the services.</param>
+        public void Configure(IApplicationBuilder builder)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            builder.UseRouting().UseEndpoints(endpoints => endpoints.MapHub<ChatHub>("/hubs/chat"));
         }
     }
 }

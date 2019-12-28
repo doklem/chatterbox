@@ -1,9 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Server</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog.Extensions.Hosting" Version="1.6.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Chatterbox.Contracts\Chatterbox.Contracts.csproj" />
