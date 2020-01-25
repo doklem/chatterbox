@@ -1,4 +1,5 @@
-﻿using Chatterbox.Client.Cross.Abstractions;
+﻿using AutoMapper;
+using Chatterbox.Client.Cross.Abstractions;
 using Chatterbox.Client.DataAccess.Abstractions;
 using Chatterbox.Contracts.Hubs;
 using Chatterbox.Contracts.Messages;
@@ -50,9 +51,14 @@ namespace Chatterbox.Client.DataAccess.Implementations
         private readonly ILogger logger;
 
         /// <summary>
+        /// Gets the <see cref="IMapper"/>, which converts <see cref="HubConnectionState"/>s into <see cref="ConnectionState"/>s.
+        /// </summary>
+        private readonly IMapper mapper;
+
+        /// <summary>
         /// Gets the history over all <see cref="ChatMessage"/>s.
         /// </summary>
-        private readonly ConcurrentDictionary<Guid, ChatMessage> messages;
+        private readonly ConcurrentDictionary<long, ChatMessage> messages;
 
         /// <summary>
         /// Gets the client's configuration.
@@ -78,20 +84,22 @@ namespace Chatterbox.Client.DataAccess.Implementations
         public int Count { get { return messages.Count; } }
 
         /// <inheritdoc/>
-        public ConnectionState State { get { return connection.State.ToConnectionState(); } }
+        public ConnectionState State { get { return mapper.Map<ConnectionState>(connection.State); } }
 
         /// <summary>
         /// Creates a new instance of <see cref="ChatClient"/>.
         /// </summary>
         /// <param name="builder">This <see cref="IHubConnectionBuilder"/> will be used to create the <see cref="HubConnection"/> to the server.</param>
         /// <param name="logger">This <see cref="ILogger"/> will become the <see cref="ChatClient"/>'s <see cref="logger"/>.</param>
+        /// <param name="mapper">This <see cref="IMapper"/> will become the <see cref="ChatClient"/>'s <see cref="mapper"/>.</param>
         /// <param name="options">This <see cref="AppSettings"/> will become the <see cref="ChatClient"/>'s <see cref="options"/>.</param>
-        public ChatClient(IHubConnectionBuilder builder, ILogger<ChatClient> logger, IOptionsMonitor<AppSettings> options)
+        public ChatClient(IHubConnectionBuilder builder, ILogger<ChatClient> logger, IMapper mapper, IOptionsMonitor<AppSettings> options)
         {
             this.builder = builder ?? throw new ArgumentNullException(nameof(builder));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            this.mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             this.options = options ?? throw new ArgumentNullException(nameof(options));
-            messages = new ConcurrentDictionary<Guid, ChatMessage>();
+            messages = new ConcurrentDictionary<long, ChatMessage>();
         }
 
         /// <inheritdoc/>

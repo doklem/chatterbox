@@ -72,7 +72,8 @@ namespace Chatterbox.Client.Tests.Mocks
         /// <inheritdoc/>
         public Task SendMessageAsync(string text, string sender)
         {
-            var message = new ChatMessage { Id = Guid.NewGuid(), Sender = sender, Text = text, Time = DateTime.UtcNow };
+            var message = new ChatMessage { Sender = sender, Text = text, Time = DateTime.UtcNow };
+            message.Id = message.Time.Ticks;
             Messages.Add(message);
             ObtainMessage?.Invoke(message);
             return Task.CompletedTask;

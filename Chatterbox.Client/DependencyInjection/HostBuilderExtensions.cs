@@ -1,4 +1,5 @@
-﻿using Chatterbox.Client.Cross.Abstractions;
+﻿using AutoMapper;
+using Chatterbox.Client.Cross.Abstractions;
 using Chatterbox.Client.Cross.Implementations;
 using Chatterbox.Client.DataAccess.Abstractions;
 using Chatterbox.Client.DataAccess.Implementations;
@@ -69,6 +70,7 @@ namespace Chatterbox.Client.DependencyInjection
         {
             return services
                     .Configure<AppSettings>(configuration)
+                    .AddAutoMapper(typeof(HubConnectionStateProfile))
                     .AddTransient<IAsyncCommand, AsyncCommand>()
                     .AddSingleton(provider =>
                     {
