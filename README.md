@@ -65,9 +65,9 @@ This produces a self contained version of the server, which will be located in t
 
 The following articles will offer further knowledge about certain aspects of Chatterbox.
 
-* [Solution architecture](https://github.com/doklem/chatterbox/wiki/SolutionArchitecture.md)
-* [Resource management with an IServiceProvider](https://github.com/doklem/chatterbox/wiki/ResourceManagementWithIServiceProvider.md)
-* [Connection handling with an IHostedService](https://github.com/doklem/chatterbox/wiki/ConnectionHandlingWithIHostedService.md)
+* [Solution architecture](https://github.com/doklem/chatterbox/wiki/Solution-Architecture)
+* [Resource management with an IServiceProvider](https://github.com/doklem/chatterbox/wiki/Resource-Management-with-IServiceProvider)
+* [Connection handling with an IHostedService](https://github.com/doklem/chatterbox/wiki/Connection-Handling-with-IHostedService)
 
 ## Disclaimer
 
