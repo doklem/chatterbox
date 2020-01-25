@@ -11,6 +11,7 @@
 * [Build](#build)
   * [Building the Client on Windows](#building-the-client-on-windows)
   * [Building the Server on Windows](#building-the-server-on-windows)
+* [Documentation](#documentation)
 * [Disclaimer](#disclaimer)
 * [License](#license)
 
@@ -59,6 +60,14 @@ Run the following statement within the solution's root folder in your command li
 ```
 
 This produces a self contained version of the server, which will be located in the folder _publish/server_.
+
+## Documentation
+
+The following articles will offer further knowledge about certain aspects of Chatterbox.
+
+* [Solution architecture](https://github.com/doklem/chatterbox/wiki/SolutionArchitecture.md)
+* [Resource management with an IServiceProvider](https://github.com/doklem/chatterbox/wiki/ResourceManagementWithIServiceProvider.md)
+* [Connection handling with an IHostedService](https://github.com/doklem/chatterbox/wiki/ConnectionHandlingWithIHostedService.md)
 
 ## Disclaimer
 
