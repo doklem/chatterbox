@@ -17,6 +17,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "DependencyValidation", "DependencyValidation\DependencyValidation.modelproj", "{C24757ED-D0EC-44B0-9753-B3C1EFACE24D}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chatterbox.Server.Tests", "Chatterbox.Server.Tests\Chatterbox.Server.Tests.csproj", "{BAD75A31-6ED1-4129-9F60-51C824FB0B24}"
 EndProject
 Global
@@ -41,6 +43,10 @@ Global
 		{8E72A0C2-FEF5-4759-BA31-E147BF4DFDCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E72A0C2-FEF5-4759-BA31-E147BF4DFDCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8E72A0C2-FEF5-4759-BA31-E147BF4DFDCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C24757ED-D0EC-44B0-9753-B3C1EFACE24D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C24757ED-D0EC-44B0-9753-B3C1EFACE24D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C24757ED-D0EC-44B0-9753-B3C1EFACE24D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C24757ED-D0EC-44B0-9753-B3C1EFACE24D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BAD75A31-6ED1-4129-9F60-51C824FB0B24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BAD75A31-6ED1-4129-9F60-51C824FB0B24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BAD75A31-6ED1-4129-9F60-51C824FB0B24}.Release|Any CPU.ActiveCfg = Release|Any CPU

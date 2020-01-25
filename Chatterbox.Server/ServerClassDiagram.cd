@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Chatterbox.Server.Hubs.ChatHub" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAIAAAAAAACAAAAEAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Hubs\ChatHub.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="messageManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Chatterbox.Server.DataAccess.Implementations.ApplicationDbContext" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>DataAccess\Implementations\ApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Chatterbox.Server.Business.Implementations.MessageManager" Collapsed="true">
+    <Position X="0.5" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAIAAACAQAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Business\Implementations\MessageManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="dbContext" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Chatterbox.Server.Business.Abstractions.IMessageManager" Collapsed="true">
+    <Position X="0.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAA=</HashCode>
+      <FileName>Business\Abstractions\IMessageManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Chatterbox.Server.DataAccess.Abstractions.IApplicationDbContext" Collapsed="true">
+    <Position X="0.5" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>DataAccess\Abstractions\IApplicationDbContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="610063d5-e7a3-48dd-9fa4-693b12396cc7" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <layers>
+    <layer Id="cd0a83ac-72c5-4b0e-a55d-ba9afecc2bde" name="Chatterbox.Contracts">
+      <childLayers>
+        <layer Id="e85f2e6b-db5f-43dd-9569-50c423a6d943" name="Hubs">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="526ed65a-ff80-4bea-81e9-edc68278dda8" direction="Forward">
+              <layerMoniker Id="65193b91-d24b-4f77-91e0-2f2e655fbf5d" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="16ead697-d09a-4db2-939d-1775774b747f" name="Hubs">
+              <ArtifactNode Label="Hubs" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Contracts/Chatterbox.Contracts.csproj File=../Chatterbox.Contracts/Hubs/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Chatterbox.Contracts Namespace=Chatterbox.Contracts.Hubs Type=IChat)" Label="IChat" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="65193b91-d24b-4f77-91e0-2f2e655fbf5d" name="Messages">
+          <references>
+            <reference Id="b018481c-2af4-43c3-84eb-ef6ee2c94281" name="Messages">
+              <ArtifactNode Label="Messages" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Contracts/Chatterbox.Contracts.csproj File=../Chatterbox.Contracts/Messages/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Chatterbox.Contracts Namespace=Chatterbox.Contracts.Messages Type=ChatMessage)" Label="ChatMessage" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+      <references>
+        <reference Id="4583ba93-99ce-4d4d-ad17-191493e19124" name="Chatterbox.Contracts">
+          <ArtifactNode Label="Chatterbox.Contracts" Category="CodeSchema_Project" Id="(Assembly=../Chatterbox.Contracts/Chatterbox.Contracts.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Chatterbox.Contracts)" Label="Chatterbox.Contracts.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="afe749fa-d5ae-42dd-81c0-d9c505aff76e" name="Chatterbox.Client.Tests">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="1d2c74e0-ce42-473a-9d35-78473b3b4fd8" direction="Forward">
+          <layerMoniker Id="cd0a83ac-72c5-4b0e-a55d-ba9afecc2bde" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="661c59d9-ff52-4e77-af76-38130d6b45b3" direction="Forward">
+          <layerMoniker Id="96889a6d-c785-401c-aadf-daa502c0f641" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="552f581f-baa4-4438-a233-b37eb746f3d3" name="Chatterbox.Client.Tests">
+          <ArtifactNode Label="Chatterbox.Client.Tests" Category="CodeSchema_Project" Id="(Assembly=../Chatterbox.Client.Tests/Chatterbox.Client.Tests.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Chatterbox.Client.Tests)" Label="Chatterbox.Client.Tests.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="96889a6d-c785-401c-aadf-daa502c0f641" name="Chatterbox.Client">
+      <childLayers>
+        <layer Id="b4c6c2d3-1988-4752-8486-84cef4ed9d0b" name="DataAccess">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="7e5cda00-1b2e-4e8b-91a0-70692280b399" direction="Forward">
+              <layerMoniker Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <childLayers>
+            <layer Id="42da7f01-a0f9-4669-b208-797b988899be" name="Abstractions">
+              <dependencyToLayers>
+                <dependencyFromLayerToLayer Id="84d1da8e-a187-44b0-be39-a484a68638a8" direction="Forward">
+                  <layerMoniker Id="65193b91-d24b-4f77-91e0-2f2e655fbf5d" />
+                </dependencyFromLayerToLayer>
+              </dependencyToLayers>
+              <references>
+                <reference Id="e53848f5-814a-450c-b359-378deab6fb9f" name="Abstractions">
+                  <ArtifactNode Label="Abstractions" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/DataAccess/Abstractions/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=ConnectionState)" Label="ConnectionState" Category="CodeSchema_Enum">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=IChatClient)" Label="IChatClient" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=IUserSession)" Label="IUserSession" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+            <layer Id="7f4562e1-b125-4a77-8fe3-641589d7e616" name="Implementations">
+              <dependencyToLayers>
+                <dependencyFromLayerToLayer Id="96b9b5d2-910b-4215-a7df-9e6bebc3b40f" direction="Forward">
+                  <layerMoniker Id="42da7f01-a0f9-4669-b208-797b988899be" />
+                </dependencyFromLayerToLayer>
+                <dependencyFromLayerToLayer Id="78777ee4-ed8c-43de-b411-1968b5f5f253" direction="Forward">
+                  <layerMoniker Id="cd0a83ac-72c5-4b0e-a55d-ba9afecc2bde" />
+                </dependencyFromLayerToLayer>
+              </dependencyToLayers>
+              <references>
+                <reference Id="0acbb666-2a7b-4944-b126-c21321c7b823" name="Implementations">
+                  <ArtifactNode Label="Implementations" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/DataAccess/Implementations/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Implementations Type=ChatClient)" Label="ChatClient" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Implementations Type=UserSession)" Label="UserSession" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+          </childLayers>
+          <references>
+            <reference Id="6087a536-07aa-4b80-b3eb-7a41ef44562f" name="DataAccess">
+              <ArtifactNode Label="DataAccess" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/DataAccess/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=ConnectionState)" Label="ConnectionState" Category="CodeSchema_Enum">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=IChatClient)" Label="IChatClient" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Abstractions Type=IUserSession)" Label="IUserSession" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Implementations Type=ChatClient)" Label="ChatClient" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DataAccess.Implementations Type=UserSession)" Label="UserSession" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="f941fbdd-6258-470d-baf6-5d23d1b7d44e" name="ViewModels">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="aceb9b88-fa75-47f6-87d9-7621bb1e2bf1" direction="Forward">
+              <layerMoniker Id="42da7f01-a0f9-4669-b208-797b988899be" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="2d590de2-d380-49b7-a041-2fcd5e5c1ed5" direction="Forward">
+              <layerMoniker Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="e7cf9115-1485-421c-9b38-44aa0ba6cd88" direction="Forward">
+              <layerMoniker Id="65193b91-d24b-4f77-91e0-2f2e655fbf5d" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="89da07ce-c374-4a56-ad20-471778545d82" name="ViewModels">
+              <ArtifactNode Label="ViewModels" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/ViewModels/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=ChatViewModel)" Label="ChatViewModel" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=ForeignMessageListItem)" Label="ForeignMessageListItem" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=LoginViewModel)" Label="LoginViewModel" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=MainViewModel)" Label="MainViewModel" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=MessageListItemBase)" Label="MessageListItemBase" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.ViewModels Type=OwnMessageListItem)" Label="OwnMessageListItem" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="66831e42-cd16-4577-a812-b6dfed607176" name="Views">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="e99f2343-6eb5-4760-8747-9233ee010db8" direction="Forward">
+              <layerMoniker Id="f941fbdd-6258-470d-baf6-5d23d1b7d44e" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="9dbe5d42-7c2c-4b78-9fad-dd23cab13697" direction="Forward">
+              <layerMoniker Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="0aca6993-26e4-4f9b-89fa-ea023b0b645c" name="Views">
+              <ArtifactNode Label="Views" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/Views/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Views Type=BoolToVisibilityConverter)" Label="BoolToVisibilityConverter" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Views Type=ChatControl)" Label="ChatControl" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Views Type=EnumToStringConverter)" Label="EnumToStringConverter" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Views Type=LoginControl)" Label="LoginControl" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Views Type=MainWindow)" Label="MainWindow" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="ae081978-2801-4b3b-9656-0edac781ec59" name="App.xaml">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="e60f542c-85ba-44fe-857d-fef3bf789f72" direction="Forward">
+              <layerMoniker Id="66831e42-cd16-4577-a812-b6dfed607176" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="d8d169e6-79f1-4620-8694-74ccfe0ceec3" direction="Forward">
+              <layerMoniker Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="17f04619-82f5-4d5a-9831-c7fde52111a9" direction="Forward">
+              <layerMoniker Id="51e87710-1210-403d-97e3-35e02ab7ce5d" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="7e4ec193-7e8e-4d0f-8cd1-004afd850ed7" name="App.xaml">
+              <ArtifactNode Label="App.xaml" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/App.xaml)">
+                <Category Ref="File" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client Type=App)" Label="App" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="196b6f31-09bc-4c86-82c1-dab94131e263" name="Cross">
+          <childLayers>
+            <layer Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" name="Abstractions">
+              <references>
+                <reference Id="a23f685c-6d53-43e1-95dc-afb12af63788" name="Abstractions">
+                  <ArtifactNode Label="Abstractions" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/Cross/Abstractions/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=AppSettings)" Label="AppSettings" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=FallbackExceptionHandler)" Label="FallbackExceptionHandler" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=IAsyncCommand)" Label="IAsyncCommand" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=IDispatcher)" Label="IDispatcher" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=TaskExtensions)" Label="TaskExtensions" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+            <layer Id="e71a3ac9-84b9-41b2-ab93-623402bafc57" name="Implementations">
+              <dependencyToLayers>
+                <dependencyFromLayerToLayer Id="0c0881d5-403a-4f8b-b5db-b55a2352ff69" direction="Forward">
+                  <layerMoniker Id="bdb7153a-0009-42bc-b5f6-4a8e75ad677a" />
+                </dependencyFromLayerToLayer>
+              </dependencyToLayers>
+              <references>
+                <reference Id="aa7a0540-7c8d-4ce3-8593-a78c4d59c310" name="Implementations">
+                  <ArtifactNode Label="Implementations" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/Cross/Implementations/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Implementations Type=AsyncCommand)" Label="AsyncCommand" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Implementations Type=DispatcherAdapter)" Label="DispatcherAdapter" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+          </childLayers>
+          <references>
+            <reference Id="48c88e90-0d53-4145-92b9-defabdff165c" name="Cross">
+              <ArtifactNode Label="Cross" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/Cross/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=AppSettings)" Label="AppSettings" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=FallbackExceptionHandler)" Label="FallbackExceptionHandler" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=IAsyncCommand)" Label="IAsyncCommand" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=IDispatcher)" Label="IDispatcher" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Abstractions Type=TaskExtensions)" Label="TaskExtensions" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Implementations Type=AsyncCommand)" Label="AsyncCommand" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.Cross.Implementations Type=DispatcherAdapter)" Label="DispatcherAdapter" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+      <references>
+        <reference Id="ac53a287-7735-4e3a-b3c2-1438935cfcb7" name="Chatterbox.Client">
+          <ArtifactNode Label="Chatterbox.Client" Category="CodeSchema_Project" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client)" Label="Client.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="51e87710-1210-403d-97e3-35e02ab7ce5d" name="DependencyInjection">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="f24b3d73-aaad-4c48-b8e9-a579318b3909" direction="Forward">
+          <layerMoniker Id="96889a6d-c785-401c-aadf-daa502c0f641" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="cab5429e-aa60-40b0-ada0-90051a4315ea" name="DependencyInjection">
+          <ArtifactNode Label="DependencyInjection" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Client/Chatterbox.Client.csproj File=../Chatterbox.Client/DependencyInjection/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client Namespace=Chatterbox.Client.DependencyInjection Type=HostBuilderExtensions)" Label="HostBuilderExtensions" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="39755b09-867b-4eaf-9785-ac098950956e" name="Chatterbox.Server">
+      <childLayers>
+        <layer Id="b22d5f7a-67dd-486a-9eb9-d04ad4354165" name="Program.cs">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="9568fcb8-d881-4041-9d9f-bd77ba22ecef" direction="Forward">
+              <layerMoniker Id="e4296631-3aca-445b-b365-eec75424dd77" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="f68839e4-e84e-4739-9be2-e08737591e5e" name="Program.cs">
+              <ArtifactNode Label="Program.cs" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/Program.cs)">
+                <Category Ref="File" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server Type=Program)" Label="Program" Category="CodeSchema_Class">
+                <LinkCategory Ref="Contains" />
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="6b79b370-de6f-4b75-ad9c-6be97b446119" name="Hubs">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="d58e1869-10ed-45f0-8976-717c96126a47" direction="Forward">
+              <layerMoniker Id="cd0a83ac-72c5-4b0e-a55d-ba9afecc2bde" />
+            </dependencyFromLayerToLayer>
+            <dependencyFromLayerToLayer Id="cd68abf9-231c-40ba-bd01-87c3038d44aa" direction="Forward">
+              <layerMoniker Id="82c3a67b-9d07-47f7-a0d6-ae42463500bc" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <references>
+            <reference Id="37eea9ef-595e-4a55-818d-b629445f7d48" name="Hubs">
+              <ArtifactNode Label="Hubs" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/Hubs/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Hubs Type=ChatHub)" Label="ChatHub" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="76448261-fcf8-4cca-bdb1-eb26fe3c2708" name="Business">
+          <dependencyToLayers>
+            <dependencyFromLayerToLayer Id="52c3048d-ccdd-4b30-a76d-08026870d523" direction="Forward">
+              <layerMoniker Id="65193b91-d24b-4f77-91e0-2f2e655fbf5d" />
+            </dependencyFromLayerToLayer>
+          </dependencyToLayers>
+          <childLayers>
+            <layer Id="82c3a67b-9d07-47f7-a0d6-ae42463500bc" name="Abstractions">
+              <references>
+                <reference Id="c6da0e9c-0e85-40ab-af20-ff9574f8955d" name="Abstractions">
+                  <ArtifactNode Label="Abstractions" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/Business/Abstractions/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Abstractions Type=IMessageManager)" Label="IMessageManager" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+            <layer Id="d0fb48ce-2056-4b5d-bbfc-7381008cf793" name="Implementations">
+              <dependencyToLayers>
+                <dependencyFromLayerToLayer Id="9a4a4f8b-19a9-4154-8313-48f0512a6f4b" direction="Forward">
+                  <layerMoniker Id="82c3a67b-9d07-47f7-a0d6-ae42463500bc" />
+                </dependencyFromLayerToLayer>
+                <dependencyFromLayerToLayer Id="7dddee4c-a12c-4e8a-9b2e-3bd2cca3e9b7" direction="Forward">
+                  <layerMoniker Id="a3699f72-275e-43ad-8a6f-1efc4cfc33f0" />
+                </dependencyFromLayerToLayer>
+              </dependencyToLayers>
+              <references>
+                <reference Id="2e1e06f9-a48c-4179-b380-1ce3524c2782" name="Implementations">
+                  <ArtifactNode Label="Implementations" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/Business/Implementations/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Implementations Type=ChatMessageProfile)" Label="ChatMessageProfile" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Implementations Type=MessageManager)" Label="MessageManager" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+          </childLayers>
+          <references>
+            <reference Id="007a5737-3868-45fb-bb90-0462d7a1fbd8" name="Business">
+              <ArtifactNode Label="Business" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/Business/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Abstractions Type=IMessageManager)" Label="IMessageManager" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Implementations Type=ChatMessageProfile)" Label="ChatMessageProfile" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.Business.Implementations Type=MessageManager)" Label="MessageManager" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+        <layer Id="c3dcd149-2382-4d70-8df7-ee9099d7d588" name="DataAccess">
+          <childLayers>
+            <layer Id="a3699f72-275e-43ad-8a6f-1efc4cfc33f0" name="Abstractions">
+              <references>
+                <reference Id="c17de160-5199-4b41-a922-0c7061ca536d" name="Abstractions">
+                  <ArtifactNode Label="Abstractions" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/DataAccess/Abstractions/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Abstractions Type=IApplicationDbContext)" Label="IApplicationDbContext" Category="CodeSchema_Interface">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Abstractions Type=MessageEntity)" Label="MessageEntity" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+            <layer Id="df9f9d24-d0a7-44ed-9dcd-9bb79b6c8f41" name="Implementations">
+              <dependencyToLayers>
+                <dependencyFromLayerToLayer Id="815c26f7-5b37-4443-ac03-5083d6912073" direction="Forward">
+                  <layerMoniker Id="a3699f72-275e-43ad-8a6f-1efc4cfc33f0" />
+                </dependencyFromLayerToLayer>
+              </dependencyToLayers>
+              <references>
+                <reference Id="0ee178af-d327-4a39-81aa-83478961b8b3" name="Implementations">
+                  <ArtifactNode Label="Implementations" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/DataAccess/Implementations/)">
+                    <Category Ref="ProjectFolder" />
+                  </ArtifactNode>
+                  <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Implementations Type=ApplicationDbContext)" Label="ApplicationDbContext" Category="CodeSchema_Class">
+                    <LinkCategory Ref="Represents" />
+                  </ExpandedNode>
+                </reference>
+              </references>
+            </layer>
+          </childLayers>
+          <references>
+            <reference Id="f00ec9a6-a669-47ad-ae43-3e4962a53d12" name="DataAccess">
+              <ArtifactNode Label="DataAccess" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/DataAccess/)">
+                <Category Ref="ProjectFolder" />
+              </ArtifactNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Abstractions Type=IApplicationDbContext)" Label="IApplicationDbContext" Category="CodeSchema_Interface">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Abstractions Type=MessageEntity)" Label="MessageEntity" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+              <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DataAccess.Implementations Type=ApplicationDbContext)" Label="ApplicationDbContext" Category="CodeSchema_Class">
+                <LinkCategory Ref="Represents" />
+              </ExpandedNode>
+            </reference>
+          </references>
+        </layer>
+      </childLayers>
+      <references>
+        <reference Id="303c0f73-9b8b-481d-8b29-cde7b8e385dc" name="Chatterbox.Server">
+          <ArtifactNode Label="Chatterbox.Server" Category="CodeSchema_Project" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Server)" Label="Server.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="504f11db-9a22-42fb-8e7e-0f61f8cf00f8" name="Chatterbox.Server.Tests">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="04ac45a4-16f8-441c-b7b2-23143bd5e815" direction="Forward">
+          <layerMoniker Id="cd0a83ac-72c5-4b0e-a55d-ba9afecc2bde" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="e01dbcef-8dcc-4fa3-968d-707738104739" direction="Forward">
+          <layerMoniker Id="39755b09-867b-4eaf-9785-ac098950956e" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="af4ff070-5951-42bd-a3a7-e2e858714cba" name="Chatterbox.Server.Tests">
+          <ArtifactNode Label="Chatterbox.Server.Tests" Category="CodeSchema_Project" Id="(Assembly=../Chatterbox.Server.Tests/Chatterbox.Server.Tests.csproj)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Chatterbox.Server.Tests)" Label="Chatterbox.Server.Tests.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="e4296631-3aca-445b-b365-eec75424dd77" name="DependencyInjection1">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="a99d76dd-d3b2-4767-af10-1ec567a19990" direction="Forward">
+          <layerMoniker Id="39755b09-867b-4eaf-9785-ac098950956e" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="387f2634-ee86-481d-abb5-d8b74afc35c5" name="DependencyInjection">
+          <ArtifactNode Label="DependencyInjection" Category="CodeSchema_ProjectItem" Id="(Assembly=../Chatterbox.Server/Chatterbox.Server.csproj File=../Chatterbox.Server/DependencyInjection/)">
+            <Category Ref="ProjectFolder" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DependencyInjection Type=HostBuilderExtensions)" Label="HostBuilderExtensions" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+          <ExpandedNode Id="(Assembly=Server Namespace=Chatterbox.Server.DependencyInjection Type=Startup)" Label="Startup" Category="CodeSchema_Class">
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>

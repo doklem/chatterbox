@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c24757ed-d0ec-44b0-9753-b3c1eface24d}</ProjectGuid>
+    <ArchitectureToolsVersion>2.0.0.0</ArchitectureToolsVersion>
+    <Name>DependencyValidation</Name>
+    <RootNamespace>DependencyValidation</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chatterbox.Client.Tests\Chatterbox.Client.Tests.csproj">
+      <Name>Chatterbox.Client.Tests</Name>
+      <Project>{8e72a0c2-fef5-4759-ba31-e147bf4dfdca}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Chatterbox.Client\Chatterbox.Client.csproj">
+      <Name>Chatterbox.Client</Name>
+      <Project>{87e726c7-8a70-4bc9-a06b-304a65d5122f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Chatterbox.Contracts\Chatterbox.Contracts.csproj">
+      <Name>Chatterbox.Contracts</Name>
+      <Project>{7fa11114-704f-4098-8703-b5121f819df8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Chatterbox.Server.Tests\Chatterbox.Server.Tests.csproj">
+      <Name>Chatterbox.Server.Tests</Name>
+      <Project>{bad75a31-6ed1-4129-9f60-51c824fb0b24}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Chatterbox.Server\Chatterbox.Server.csproj">
+      <Name>Chatterbox.Server</Name>
+      <Project>{77442b91-f4a2-427c-ba17-1d1f5b60054a}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Validate Include="DependencyValidation.layerdiagram">
+      <SubType>Content</SubType>
+    </Validate>
+    <Validate Include="DependencyValidation.layerdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>DependencyValidation.layerdiagram</DependentUpon>
+    </Validate>
+    <Validate Include="DependencyValidation.layerdiagram.suppressions">
+      <SubType>Content</SubType>
+      <DependentUpon>DependencyValidation.layerdiagram</DependentUpon>
+    </Validate>
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" Condition="'$(VSToolsPath)' != ''" />
+</Project>
