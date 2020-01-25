@@ -1,5 +1,6 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.Cross.Implementations;
+using Chatterbox.Client.DataAccess.Abstractions;
 using Chatterbox.Client.Tests.Mocks;
 using Chatterbox.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,7 +27,7 @@ namespace Chatterbox.Client.Tests.ViewModels
             {
                 var viewModel = provider.GetRequiredService<ChatViewModel>();
                 var raised = false;
-                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised = string.Equals(e.PropertyName, nameof(viewModel.NewMessage));
+                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised |= string.Equals(e.PropertyName, nameof(viewModel.NewMessage));
                 viewModel.NewMessage = "Hey Bob";
                 Assert.IsTrue(raised);
                 raised = false;
@@ -56,7 +57,7 @@ namespace Chatterbox.Client.Tests.ViewModels
                 var chatClientMock = provider.GetRequiredService<ChatClientMock>();
                 var viewModel = provider.GetRequiredService<ChatViewModel>();
                 var raised = false;
-                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised = string.Equals(e.PropertyName, nameof(viewModel.ConnectionState));
+                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised |= string.Equals(e.PropertyName, nameof(viewModel.ConnectionState));
                 await chatClientMock.SetStateAsync(ConnectionState.Connected).ConfigureAwait(false);
                 Assert.IsTrue(raised);
             }
@@ -80,11 +81,11 @@ namespace Chatterbox.Client.Tests.ViewModels
             try
             {
                 var chatClientMock = provider.GetRequiredService<ChatClientMock>();
-                var userSessionMock = provider.GetRequiredService<UserSessionMock>();
+                var userSession = provider.GetRequiredService<IUserSession>();
                 await chatClientMock.SetStateAsync(ConnectionState.Connected).ConfigureAwait(false);
                 var text = "test message";
-                var sender = "test sender";
-                userSessionMock.UserName = sender;
+                var sender = "test user";
+                await userSession.LoginAsync(sender).ConfigureAwait(false);
                 var viewModel = provider.GetRequiredService<ChatViewModel>();
                 viewModel.NewMessage = text;
                 await viewModel.SendCommand.ExecuteAsync().ConfigureAwait(false);
@@ -138,10 +139,8 @@ namespace Chatterbox.Client.Tests.ViewModels
             services.AddTransient<IAsyncCommand, AsyncCommand>()
                 .AddSingleton<ChatClientMock>()
                 .AddSingleton<IChatClient>(provider => provider.GetRequiredService<ChatClientMock>())
-                .AddSingleton<DispatcherMock>()
-                .AddSingleton<IDispatcher>(provider => provider.GetRequiredService<DispatcherMock>())
-                .AddSingleton<UserSessionMock>()
-                .AddSingleton<IUserSession>(provider => provider.GetRequiredService<UserSessionMock>())
+                .AddSingleton<IDispatcher, DispatcherMock>()
+                .AddSingleton<IUserSession, UserSessionMock>()
                 .AddTransient<ChatViewModel>();
         }
     }

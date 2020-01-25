@@ -1,4 +1,4 @@
-﻿using Chatterbox.Client.DataAccess;
+﻿using Chatterbox.Client.DataAccess.Abstractions;
 using System;
 using System.Threading.Tasks;
 
@@ -10,10 +10,10 @@ namespace Chatterbox.Client.Tests.Mocks
     internal class UserSessionMock : IUserSession
     {
         /// <inheritdoc/>
-        public bool IsAuthenticated { get; set; }
+        public bool IsAuthenticated { get; private set; }
 
         /// <inheritdoc/>
-        public string UserName { get; set; }
+        public string UserName { get; private set; }
 
         /// <inheritdoc/>
         public event Func<Task> IsAuthenticatedChangedAsync;
@@ -25,15 +25,26 @@ namespace Chatterbox.Client.Tests.Mocks
         }
 
         /// <inheritdoc/>
-        public Task<bool> LoginAsync(string userName)
+        public async Task<bool> LoginAsync(string userName)
         {
-            return Task.FromResult(true);
+            UserName = userName;
+            IsAuthenticated = true;
+            if (IsAuthenticatedChangedAsync != null)
+            {
+                await IsAuthenticatedChangedAsync();
+            }
+            return true;
         }
 
         /// <inheritdoc/>
-        public Task LogoutAsync()
+        public async Task LogoutAsync()
         {
-            return Task.CompletedTask;
+            UserName = null;
+            IsAuthenticated = false;
+            if (IsAuthenticatedChangedAsync != null)
+            {
+                await IsAuthenticatedChangedAsync();
+            }
         }
     }
 }

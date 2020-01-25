@@ -1,15 +1,13 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
-using Chatterbox.Contracts;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.DataAccess.Abstractions;
+using Chatterbox.Contracts.Messages;
 using GalaSoft.MvvmLight;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Chatterbox.Client.Tests")]
 namespace Chatterbox.Client.ViewModels
 {
     /// <summary>

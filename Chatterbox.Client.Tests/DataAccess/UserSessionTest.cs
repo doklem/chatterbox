@@ -1,4 +1,5 @@
-using Chatterbox.Client.DataAccess;
+using Chatterbox.Client.DataAccess.Abstractions;
+using Chatterbox.Client.DataAccess.Implementations;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System;
@@ -18,7 +19,7 @@ namespace Chatterbox.Client.Tests.DataAccess
         public async Task LoginAsyncNewSession()
         {
             using var provider = CreateServiceProvider();
-            var userName = "Alice";
+            var userName = "test user";
             using var userSession = provider.GetRequiredService<IUserSession>();
             Assert.IsNull(userSession.UserName);
             Assert.IsFalse(userSession.IsAuthenticated);
@@ -65,7 +66,7 @@ namespace Chatterbox.Client.Tests.DataAccess
         {
             using var provider = CreateServiceProvider();
             using var userSession = provider.GetRequiredService<IUserSession>();
-            await userSession.LoginAsync("Alice");
+            await userSession.LoginAsync("test user");
             await userSession.LogoutAsync();
             Assert.IsFalse(userSession.IsAuthenticated);
             Assert.IsNull(userSession.UserName);
@@ -85,7 +86,7 @@ namespace Chatterbox.Client.Tests.DataAccess
                 raised = true;
                 return Task.CompletedTask;
             };
-            await userSession.LoginAsync("Alice");
+            await userSession.LoginAsync("test user");
             Assert.IsTrue(raised);
         }
 
@@ -97,7 +98,7 @@ namespace Chatterbox.Client.Tests.DataAccess
         {
             using var provider = CreateServiceProvider();
             using var userSession = provider.GetRequiredService<IUserSession>();
-            await userSession.LoginAsync("Alice");
+            await userSession.LoginAsync("test user");
             bool raised = false;
             userSession.IsAuthenticatedChangedAsync += () =>
             {

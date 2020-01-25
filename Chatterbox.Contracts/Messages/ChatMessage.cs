@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chatterbox.Contracts
+namespace Chatterbox.Contracts.Messages
 {
     /// <summary>
     /// Represents a message of the chat.

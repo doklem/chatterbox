@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Abstractions
 {
     /// <summary>
     /// A static handler for <see cref="Exception"/>s. It is only inteded as a fallback scenario.

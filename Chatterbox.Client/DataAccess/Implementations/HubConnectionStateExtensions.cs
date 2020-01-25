@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using Chatterbox.Client.DataAccess.Abstractions;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 
-namespace Chatterbox.Client.DataAccess
+namespace Chatterbox.Client.DataAccess.Implementations
 {
     /// <summary>
     /// This static class provides useful functions for the <see cref="HubConnectionState"/>.
@@ -15,19 +16,14 @@ namespace Chatterbox.Client.DataAccess
         /// <returns>Returns the <see cref="ConnectionState"/> which corresponds to the given <paramref name="state"/>.</returns>
         internal static ConnectionState ToConnectionState(this HubConnectionState state)
         {
-            switch (state)
+            return state switch
             {
-                case HubConnectionState.Disconnected:
-                    return ConnectionState.Disconnected;
-                case HubConnectionState.Connected:
-                    return ConnectionState.Connected;
-                case HubConnectionState.Connecting:
-                    return ConnectionState.Connecting;
-                case HubConnectionState.Reconnecting:
-                    return ConnectionState.Reconnecting;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(state));
-            }
+                HubConnectionState.Disconnected => ConnectionState.Disconnected,
+                HubConnectionState.Connected => ConnectionState.Connected,
+                HubConnectionState.Connecting => ConnectionState.Connecting,
+                HubConnectionState.Reconnecting => ConnectionState.Reconnecting,
+                _ => throw new ArgumentOutOfRangeException(nameof(state)),
+            };
         }
     }
 }

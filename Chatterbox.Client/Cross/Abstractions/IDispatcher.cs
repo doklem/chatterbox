@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Abstractions
 {
     /// <summary>
     /// This interfaces serves as an abstraction for the access to the <see cref="System.Windows.Threading.Dispatcher"/>.

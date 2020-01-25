@@ -1,9 +1,9 @@
-﻿using Chatterbox.Contracts;
+﻿using Chatterbox.Contracts.Messages;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Client.DataAccess
+namespace Chatterbox.Client.DataAccess.Abstractions
 {
     /// <summary>
     /// The implementation of this interface should wrap the interaction with the server.

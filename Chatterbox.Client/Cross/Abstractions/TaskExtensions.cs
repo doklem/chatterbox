@@ -2,7 +2,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Abstractions
 {
     /// <summary>
     /// This static class extends the <see cref="Task"/>-<see cref="Type"/>.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Chatterbox.Client.Options
+namespace Chatterbox.Client.Cross.Abstractions
 {
     /// <summary>
     /// This class provides access to the client application's configuration.

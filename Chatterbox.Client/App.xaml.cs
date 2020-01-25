@@ -1,16 +1,9 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
-using Chatterbox.Client.Options;
-using Chatterbox.Client.ViewModels;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.DependencyInjection;
 using Chatterbox.Client.Views;
-using Microsoft.AspNetCore.SignalR.Client;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using NLog;
-using NLog.Extensions.Hosting;
-using NLog.Extensions.Logging;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -21,16 +14,6 @@ namespace Chatterbox.Client
     /// </summary>
     public partial class App : Application
     {
-        /// <summary>
-        /// Gets the name of the configuration section for logging.
-        /// </summary>
-        private const string LoggingSectionName = "Logging";
-
-        /// <summary>
-        /// Gets the name of the configuration section for NLog.
-        /// </summary>
-        private const string NLogSectionName = LoggingSectionName + ":NLog";
-
         /// <summary>
         /// Gets the <see cref="IHost"/>, which will be used to created the various services of the client through dependency injection.
         /// </summary>
@@ -43,37 +26,7 @@ namespace Chatterbox.Client
         {
             Current.DispatcherUnhandledException += OnDispatcherUnhandledException;
             host = Host.CreateDefaultBuilder()
-                .UseNLog()
-                .ConfigureLogging((context, builder) =>
-                {
-                    builder.AddConfiguration(context.Configuration.GetSection(LoggingSectionName));
-                    LogManager.Configuration = new NLogLoggingConfiguration(context.Configuration.GetSection(NLogSectionName));
-                })
-                .ConfigureHostConfiguration(builder => builder.AddEnvironmentVariables())
-                .ConfigureServices((context, services) => services
-                    .Configure<AppSettings>(context.Configuration)
-                    .AddTransient<IAsyncCommand, AsyncCommand>()
-                    .AddSingleton(provider =>
-                    {
-                        var hubConnectionBuilder = new HubConnectionBuilder()
-                            .ConfigureLogging(builder => builder.AddConfiguration(context.Configuration.GetSection(LoggingSectionName)));
-                        if (context.HostingEnvironment.IsDevelopment())
-                        {
-                            hubConnectionBuilder = hubConnectionBuilder.ConfigureLogging(builder => builder.AddDebug());
-                        }
-                        return hubConnectionBuilder;
-                    })
-                    .AddSingleton<ChatClient>()
-                    .AddSingleton<IHostedService>(provider => provider.GetRequiredService<ChatClient>())
-                    .AddSingleton<IChatClient>(provider => provider.GetRequiredService<ChatClient>())
-                    .AddSingleton<IDispatcher, DispatcherAdapter>()
-                    .AddSingleton<IUserSession, UserSession>()
-                    .AddScoped<LoginViewModel>()
-                    .AddScoped<LoginControl>()
-                    .AddScoped<ChatViewModel>()
-                    .AddScoped<ChatControl>()
-                    .AddSingleton<MainViewModel>()
-                    .AddSingleton<MainWindow>())
+                .ConfigureClient()
                 .Build();
         }
 

@@ -1,10 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Chatterbox.Client.DataAccess.Abstractions;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
-[assembly: InternalsVisibleTo("Chatterbox.Client.Tests")]
-namespace Chatterbox.Client.DataAccess
+namespace Chatterbox.Client.DataAccess.Implementations
 {
     /// <inheritdoc/>
     internal class UserSession : IUserSession

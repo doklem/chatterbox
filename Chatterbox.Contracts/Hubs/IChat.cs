@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Chatterbox.Contracts.Messages;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Contracts
+namespace Chatterbox.Contracts.Hubs
 {
     /// <summary>
     /// Represents the API of the chat SignalR hub.

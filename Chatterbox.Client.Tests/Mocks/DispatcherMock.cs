@@ -1,4 +1,4 @@
-﻿using Chatterbox.Client.Helpers;
+﻿using Chatterbox.Client.Cross.Abstractions;
 using System;
 using System.Threading.Tasks;
 

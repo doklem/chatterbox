@@ -1,11 +1,10 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-[assembly: InternalsVisibleTo("Chatterbox.Client.Tests")]
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Implementations
 {
     /// <inheritdoc/>
     internal class AsyncCommand : IAsyncCommand

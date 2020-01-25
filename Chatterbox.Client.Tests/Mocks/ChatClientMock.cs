@@ -1,5 +1,5 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Contracts;
+﻿using Chatterbox.Client.DataAccess.Abstractions;
+using Chatterbox.Contracts.Messages;
 using System;
 using System.Collections;
 using System.Collections.Generic;

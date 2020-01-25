@@ -1,5 +1,5 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.DataAccess.Abstractions;
 using GalaSoft.MvvmLight;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -99,7 +99,9 @@ namespace Chatterbox.Client.ViewModels
             rootProvider = provider ?? throw new ArgumentNullException(nameof(provider));
             this.session = session ?? throw new ArgumentNullException(nameof(session));
             contentViewModelScope = rootProvider.CreateScope();
-            ContentViewModel = contentViewModelScope.ServiceProvider.GetRequiredService<LoginViewModel>();
+            ContentViewModel = this.session.IsAuthenticated 
+                ? contentViewModelScope.ServiceProvider.GetRequiredService<ChatViewModel>()
+                : contentViewModelScope.ServiceProvider.GetRequiredService<LoginViewModel>() as ViewModelBase;
             this.session.IsAuthenticatedChangedAsync += OnIsAuthenticatedChangedAsync;
             LogoutCommand = logoutCommand ?? throw new ArgumentNullException(nameof(logoutCommand));
             LogoutCommand.ExecuteFunc = LogoutAsync;

@@ -1,5 +1,5 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.DataAccess.Abstractions;
 using GalaSoft.MvvmLight;
 using Microsoft.Extensions.Logging;
 using System;

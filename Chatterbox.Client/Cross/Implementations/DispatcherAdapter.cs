@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Implementations
 {
     /// <inheritdoc/>
     internal class DispatcherAdapter : IDispatcher

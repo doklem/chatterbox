@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Chatterbox.Client.Helpers
+namespace Chatterbox.Client.Cross.Abstractions
 {
     /// <summary>
     /// An asynchronous version of the <see cref="ICommand"/>. It's inspired by the solution from https://johnthiriet.com/mvvm-going-async-with-async-command/

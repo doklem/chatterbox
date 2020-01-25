@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Client.DataAccess
+namespace Chatterbox.Client.DataAccess.Abstractions
 {
     /// <summary>
     /// This is the model for a user session.

@@ -1,6 +1,7 @@
-﻿using Chatterbox.Client.Helpers;
-using Chatterbox.Client.Options;
-using Chatterbox.Contracts;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.DataAccess.Abstractions;
+using Chatterbox.Contracts.Hubs;
+using Chatterbox.Contracts.Messages;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -13,7 +14,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Chatterbox.Client.DataAccess
+namespace Chatterbox.Client.DataAccess.Implementations
 {
     /// <inheritdoc/>
     internal class ChatClient : IChatClient, IHostedService

@@ -1,4 +1,5 @@
-﻿using Chatterbox.Contracts;
+﻿using Chatterbox.Contracts.Hubs;
+using Chatterbox.Contracts.Messages;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using System;

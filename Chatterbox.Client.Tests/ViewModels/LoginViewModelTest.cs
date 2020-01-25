@@ -1,5 +1,6 @@
-﻿using Chatterbox.Client.DataAccess;
-using Chatterbox.Client.Helpers;
+﻿using Chatterbox.Client.Cross.Abstractions;
+using Chatterbox.Client.Cross.Implementations;
+using Chatterbox.Client.DataAccess.Abstractions;
 using Chatterbox.Client.Tests.Mocks;
 using Chatterbox.Client.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,7 @@ namespace Chatterbox.Client.Tests.ViewModels
             {
                 var viewModel = provider.GetRequiredService<LoginViewModel>();
                 var raised = false;
-                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised = string.Equals(e.PropertyName, nameof(viewModel.UserName));
+                viewModel.PropertyChanged += (object sender, PropertyChangedEventArgs e) => raised |= string.Equals(e.PropertyName, nameof(viewModel.UserName));
                 viewModel.UserName = "Alice";
                 Assert.IsTrue(raised);
                 raised = false;
@@ -51,13 +52,12 @@ namespace Chatterbox.Client.Tests.ViewModels
             var provider = CreateServiceProvider();
             try
             {
-                var userSessionMock = provider.GetRequiredService<UserSessionMock>();
+                var userSession = provider.GetRequiredService<IUserSession>();
                 var userName = "test user";
-                userSessionMock.UserName = userName;
                 var viewModel = provider.GetRequiredService<LoginViewModel>();
                 viewModel.UserName = userName;
                 await viewModel.LoginCommand.ExecuteAsync().ConfigureAwait(false);
-                Assert.AreEqual(userName, userSessionMock.UserName);
+                Assert.AreEqual(userName, userSession.UserName);
             }
             catch
             {
@@ -102,10 +102,8 @@ namespace Chatterbox.Client.Tests.ViewModels
         protected override void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IAsyncCommand, AsyncCommand>()
-                .AddSingleton<DispatcherMock>()
-                .AddSingleton<IDispatcher>(provider => provider.GetRequiredService<DispatcherMock>())
-                .AddSingleton<UserSessionMock>()
-                .AddSingleton<IUserSession>(provider => provider.GetRequiredService<UserSessionMock>())
+                .AddSingleton<IDispatcher, DispatcherMock>()
+                .AddSingleton<IUserSession, UserSessionMock>()
                 .AddTransient<LoginViewModel>();
         }
     }

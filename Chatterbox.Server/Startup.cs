@@ -1,4 +1,4 @@
-using Chatterbox.Contracts;
+using Chatterbox.Contracts.Messages;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Concurrent;
